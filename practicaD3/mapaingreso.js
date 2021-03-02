@@ -75,8 +75,8 @@ slider     = d3.select('#slider');
 
 d3.csv('ingreso.csv').then((data) => {
   data.forEach((d) => {
-    d.population     = +d.population
     d.country   = +d.country
+    d.population   = +d.population
     d.year       = +d.year
     d.income       = +d.income
 
@@ -211,7 +211,6 @@ function render(data) {
       .attr('cx', d => x(d.country))
       .attr('cy', d => y(d.population))
       .attr('r', d => r(d.income))
-      .attr('fill', d => color(d.income))
       .attr('fill', d => color(d.continent))
 
   p.exit()
