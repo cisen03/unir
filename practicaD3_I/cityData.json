@@ -1,0 +1,53 @@
+{
+    "America":
+    [
+      {"city": "New York City", "population": 8406000, "state": "New York"},
+      {"city": "Los Angeles", "population": 3884000, "state": "California"},
+      {"city": "Chicago", "population": 2719000, "state": "Illinois"},
+      {"city": "Houston", "population": 2196000, "state": "Texas"},
+      {"city": "Philadelphia", "population": 1553000, "state": "Pennsylvania"},
+      {"city": "Phoenix", "population": 1513000, "state": "Arizona"},
+      {"city": "San Antonio", "population": 1409000, "state":"Texas"},
+      {"city": "San Diego", "population": 1356000, "state":"Califronia"},
+      {"city": "Dallas", "population": 1258000, "state":"Texas"}
+    ],
+    "Germany":
+    [
+      {"city": "Berlin", "population": 3502000},
+      {"city": "Hamburg", "population": 1734000},
+      {"city": "Munich", "population": 1388000},
+      {"city": "Cologne", "population": 1024000},
+      {"city": "Frankfurt", "population": 687775},
+      {"city": "Stuttgart", "population": 597939},
+      {"city": "Düsseldorf", "population": 593682},
+      {"city": "Dortmund", "population": 572087},
+      {"city": "Essen", "population": 566862}
+    ],
+    "France":
+    [
+      {"city": "Paris", "population": 2244000},
+      {"city": "Marseille", "population": 850726},
+      {"city": "Lyon", "population": 484344},
+      {"city": "Toulouse", "population": 441802},
+      {"city": "Nice", "population": 343304},
+      {"city": "Nantes", "population": 284970}
+    ],
+    "China":
+    [
+      {"city": "Chongqing", "population": 49170000},
+      {"city": "Shanghai", "population": 24150000},
+      {"city": "Beijing", "population": 21500000},
+      {"city": "Tianjin", "population": 15470000},
+      {"city": "Chengdu", "population": 14430000},
+      {"city": "Guangzhou", "population": 14040000},
+      {"city": "Shenzhen", "population": 11910000},
+      {"city": "Shijiazhuang", "population": 10700000},
+      {"city": "Harbin", "population": 10640000}
+    ],
+    "San Marino":
+    [
+      {"city": "San Marino", "population": 13327},
+      {"city": "Serravalle", "population": 10591},
+      {"city": "Borgo Maggiore", "population": 6631}
+    ]
+  }
