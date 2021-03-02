@@ -75,7 +75,7 @@ slider     = d3.select('#slider');
 
 d3.csv('ingreso.csv').then((data) => {
   data.forEach((d) => {
-    d.income     = +d.income
+    d.population     = +d.population
     d.country   = +d.country
     d.year       = +d.year
 
@@ -101,8 +101,8 @@ d3.csv('ingreso.csv').then((data) => {
   // El dominio para el escalador ordinal
   color.domain(d3.map(data, d => d.continent))
 
-  x.domain([d3.min(data, d => d.income),
-            d3.max(data, d => d.income)])
+  x.domain([d3.min(data, d => d.population),
+            d3.max(data, d => d.population)])
   y.domain([d3.min(data, d => d.country),
             d3.max(data, d => d.country)])
 
@@ -197,7 +197,7 @@ function render(data) {
   p.enter()
     .append('circle')
       .attr('r', 0)
-      .attr('cx', d => x(d.income))
+      .attr('cx', d => x(d.population))
       .attr('cy', d => y(d.country))
       .attr('fill', '#005500')
       .attr('clip-path', 'url(#clip)')
