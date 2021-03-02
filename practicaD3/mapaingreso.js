@@ -106,8 +106,6 @@ d3.csv('ingreso.csv').then((data) => {
             d3.max(data, d => d.country)])
   y.domain([d3.min(data, d => d.population),
             d3.max(data, d => d.population)])
-  r.domain([d3.min(data, d => d.population),
-            d3.max(data, d => d.population)])
 
   // Ejes
   xAxis = d3.axisBottom(x)
@@ -210,7 +208,6 @@ function render(data) {
       .transition().duration(600)
       .attr('cx', d => x(d.country))
       .attr('cy', d => y(d.population))
-      .attr('r', d => r(d.population))
       .attr('fill', d => color(d.continent))
 
   p.exit()
