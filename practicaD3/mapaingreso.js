@@ -210,7 +210,7 @@ function render(data) {
       .transition().duration(600)
       .attr('cx', d => x(d.country))
       .attr('cy', d => y(d.population))
-      .attr('r', d => r(d.income))
+      .attr('r', d => r(d.population))
       .attr('fill', d => color(d.continent))
 
   p.exit()
