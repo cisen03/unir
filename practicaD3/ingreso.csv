@@ -1,4 +1,4 @@
-﻿continent,country,population,year,income,LLAVE_MUNICIPIO,llaveeconomia
+﻿country,continent,population,year,income,LLAVE_MUNICIPIO,llaveeconomia
 Azcapotzalco,Económicamente activa,210528,1980,210.528,1,153
 Azcapotzalco,Económicamente inactiva,207046,1980,207.046,1,158
 Coyoacán,Económicamente activa,228009,1980,228.009,2,153
