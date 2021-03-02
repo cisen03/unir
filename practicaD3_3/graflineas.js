@@ -56,7 +56,7 @@ x = d3.scaleTime().range([0, ancho])
 y = d3.scaleLinear().range([alto, 0])
 color = d3.scaleOrdinal()
           .domain(['norte', 'oriente', 'centro', 'poniente', 'sur'])
-          .range(['#bb0000', '#00bb00', '#0000bb', '#0bb000', '#000bb0'])
+          .range(['#bb0000', '#00bb00', '#0000bb', '#00bb00', '#bb0000'])
 
 // Ejes
 xAxisCall = d3.axisBottom()
@@ -69,8 +69,8 @@ yAxis = g.append('g')
 
 // Generador de líneas
 lineaGen = d3.line()
-              .x(d => x(d.Date))
-              .y(d => y(d.Close))
+              .x(d => x(d.year))
+              .y(d => y(d.population))
 linea = g.append('path')
 
 var data
