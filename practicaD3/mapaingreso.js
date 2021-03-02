@@ -102,8 +102,8 @@ d3.csv('ingreso.csv').then((data) => {
   // El dominio para el escalador ordinal
   color.domain(d3.map(data, d => d.continent))
 
-  x.domain([d3.min(data, d => d.income),
-            d3.max(data, d => d.income)])
+  x.domain([d3.min(data, d => d.country),
+            d3.max(data, d => d.country)])
   y.domain([d3.min(data, d => d.population),
             d3.max(data, d => d.population)])
   r.domain([d3.min(data, d => d.income),
