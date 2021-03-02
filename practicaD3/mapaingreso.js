@@ -73,11 +73,10 @@ contSelect = d3.select('#continente')
 botonPausa = d3.select('#pausa')
 slider     = d3.select('#slider');
 
-d3.csv('gapminder.csv').then((data) => {
+d3.csv('ingreso.csv').then((data) => {
   data.forEach((d) => {
     d.income     = +d.income
-    d.life_exp   = +d.life_exp
-    d.population = +d.population
+    d.country   = +d.country
     d.year       = +d.year
 
     // if (d.year > maxy) maxy = d.year
@@ -89,7 +88,7 @@ d3.csv('gapminder.csv').then((data) => {
   years = Array.from(new Set(d3.map(data, d => d.year)))
 
   data = data.filter((d) => {
-    return (d.income > 0) && (d.life_exp > 0)
+    return (d.income > 0) 
   })
   // data = data.filter((d) => (d.income > 0) && (d.life_exp > 0))
 
@@ -104,10 +103,8 @@ d3.csv('gapminder.csv').then((data) => {
 
   x.domain([d3.min(data, d => d.income),
             d3.max(data, d => d.income)])
-  y.domain([d3.min(data, d => d.life_exp),
-            d3.max(data, d => d.life_exp)])
-  r.domain([d3.min(data, d => d.population),
-            d3.max(data, d => d.population)])
+  y.domain([d3.min(data, d => d.country),
+            d3.max(data, d => d.country)])
 
   // Ejes
   xAxis = d3.axisBottom(x)
@@ -201,7 +198,7 @@ function render(data) {
     .append('circle')
       .attr('r', 0)
       .attr('cx', d => x(d.income))
-      .attr('cy', d => y(d.life_exp))
+      .attr('cy', d => y(d.country))
       .attr('fill', '#005500')
       .attr('clip-path', 'url(#clip)')
       .attr('stroke', '#333333')
@@ -209,8 +206,7 @@ function render(data) {
     .merge(p)
       .transition().duration(600)
       .attr('cx', d => x(d.income))
-      .attr('cy', d => y(d.life_exp))
-      .attr('r', d => r(d.population))
+      .attr('cy', d => y(d.country))
       .attr('fill', d => color(d.continent))
 
   p.exit()
