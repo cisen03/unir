@@ -73,64 +73,109 @@ contSelect = d3.select('#continente')
 botonPausa = d3.select('#pausa')
 slider     = d3.select('#slider');
 
-var width = 960,
-    height = 500;
+d3.csv('gapminder.csv').then((data) => {
+  data.forEach((d) => {
+    d.income     = +d.income
+    d.life_exp   = +d.life_exp
+    d.population = +d.population
+    d.year       = +d.year
 
-var projection = d3.geoMercator()
-    .center([0, 5 ])
-    .scale(150)
-    .rotate([-180,0]);
+    // if (d.year > maxy) maxy = d.year
+    // if (d.year < miny) miny = d.year
+  })
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
+  console.log(`miny=${miny} maxy=${maxy}`)
 
-var path = d3.geoPath()
-    .projection(projection);
+  years = Array.from(new Set(d3.map(data, d => d.year)))
 
-var g = svg.append("g");
+  data = data.filter((d) => {
+    return (d.income > 0) && (d.life_exp > 0)
+  })
+  // data = data.filter((d) => (d.income > 0) && (d.life_exp > 0))
 
-// load and display the World
-d3.json("world-110m2.json").then(function(topology) {
+  datos = data
 
-    // load and display the cities
-    d3.csv("cities.csv").then(function(data) {
-        g.selectAll("circle")
-           .data(data)
-           .enter()
-           .append("a")
-			    	  .attr("xlink:href", function(d) {
-				    	  return "https://www.google.com/search?q="+d.city;}
-		    		  )
-           .append("circle")
-           .attr("cx", function(d) {
-                   return projection([d.lon, d.lat])[0];
-           })
-           .attr("cy", function(d) {
-                   return projection([d.lon, d.lat])[1];
-           })
-           .attr("r", 5)
-           .style("fill", "red");
-    });
+  slider.attr('min', 0)
+        .attr('max', years.length - 1)
+  slider.node().value = 0
 
-    g.selectAll("path")
-       .data(topojson.feature(topology, topology.objects.countries)
-           .features)
-       .enter().append("path")
-       .attr("d", path);
+  // El dominio para el escalador ordinal
+  color.domain(d3.map(data, d => d.continent))
 
-});
+  x.domain([d3.min(data, d => d.income),
+            d3.max(data, d => d.income)])
+  y.domain([d3.min(data, d => d.life_exp),
+            d3.max(data, d => d.life_exp)])
+  r.domain([d3.min(data, d => d.population),
+            d3.max(data, d => d.population)])
 
-var zoom = d3.zoom()
-      .scaleExtent([1, 8])
-      .on('zoom', function() {
-          g.selectAll('path')
-           .attr('transform', d3.event.transform);
-          g.selectAll("circle")
-           .attr('transform', d3.event.transform);
-});
+  // Ejes
+  xAxis = d3.axisBottom(x)
+            .ticks(10)
+            .tickFormat(d => d3.format(',d')(d))
+  xAxisG = d3.axisBottom(x)
+            .ticks(10)
+            .tickFormat('')
+            .tickSize(-alto)
 
-svg.call(zoom);
+  yAxis = d3.axisLeft(y)
+            .ticks(10)
+  yAxisG = d3.axisLeft(y)
+            .ticks(10)
+            .tickFormat('')
+            .tickSize(-ancho)
+
+  g.append('g')
+    .call(xAxis)
+    .attr('transform', `translate(0,${alto})`)
+  g.append('g')
+    .call(yAxis)
+
+  g.append('g')
+    .attr('class', 'ejes')
+    .call(xAxisG)
+    .attr('transform', `translate(0,${alto})`)
+  g.append('g')
+    .attr('class', 'ejes')
+    .call(yAxisG)
+
+  contSelect.append('option')
+              .attr('value', 'todos')
+              .text('Todos')
+  color.domain().forEach(d => {
+    contSelect.append('option')
+                .attr('value', d)
+                .text(d)
+  })
+
+  // Leyenda
+  g.append('rect')
+    .attr('x', ancho - 210)
+    .attr('y', alto - 560 )
+    .attr('width', 200)
+    .attr('height', 80)
+    .attr('stroke', 'black')
+    .attr('fill', '#dedede')
+
+  color.domain().forEach((d, i) => {
+    g.append('rect')
+      .attr('x', ancho - 200)
+      .attr('y', alto - 550 + i*35)
+      .attr('width', 20)
+      .attr('height', 20)
+      .attr('fill', color(d))
+
+    g.append('text')
+      .attr('x', ancho - 175)
+      .attr('y', alto - 535 + i*35)
+      .attr('fill', 'black')
+      .text(d[0].toUpperCase() + d.slice(1))
+  })
+
+
+  frame()
+  interval = d3.interval(() => delta(1), 600)
+})
 
 function frame() {
   year = years[iyear]
