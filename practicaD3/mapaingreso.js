@@ -78,6 +78,7 @@ d3.csv('ingreso.csv').then((data) => {
     d.population     = +d.population
     d.country   = +d.country
     d.year       = +d.year
+    d.income       = +d.income
 
     // if (d.year > maxy) maxy = d.year
     // if (d.year < miny) miny = d.year
@@ -101,10 +102,12 @@ d3.csv('ingreso.csv').then((data) => {
   // El dominio para el escalador ordinal
   color.domain(d3.map(data, d => d.continent))
 
-  x.domain([d3.min(data, d => d.population),
-            d3.max(data, d => d.population)])
-  y.domain([d3.min(data, d => d.country),
+  x.domain([d3.min(data, d => d.country),
             d3.max(data, d => d.country)])
+  y.domain([d3.min(data, d => d.population),
+            d3.max(data, d => d.population)])
+  r.domain([d3.min(data, d => d.income),
+            d3.max(data, d => d.income)])
 
   // Ejes
   xAxis = d3.axisBottom(x)
@@ -197,16 +200,17 @@ function render(data) {
   p.enter()
     .append('circle')
       .attr('r', 0)
-      .attr('cx', d => x(d.population))
-      .attr('cy', d => y(d.country))
+      .attr('cx', d => x(d.country))
+      .attr('cy', d => y(d.population))
       .attr('fill', '#005500')
       .attr('clip-path', 'url(#clip)')
       .attr('stroke', '#333333')
       .attr('fill-opacity', 0.75)
     .merge(p)
       .transition().duration(600)
-      .attr('cx', d => x(d.income))
-      .attr('cy', d => y(d.country))
+      .attr('cx', d => x(d.country))
+      .attr('cy', d => y(d.population))
+      .attr('r', d => r(d.income))
       .attr('fill', d => color(d.continent))
 
   p.exit()
